@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 数据文件 (太大，不上传)
+*.h5
+*.hdf5
+train_data/
+train_data.tar.gz
+test_data_1/
+test_data_1.zip
+*.zip
+*.tar.gz
+
+# 模型文件 (太大，不上传)
+outputs_xyz/
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+
+# 日志文件
+logs/
+backup_*/
+*.pid
+# 保留训练历史日志
+!training_history.log
+
+# 临时文件
+predictions/
+temp/
+tmp/
+.DS_Store
+
+# 文档文件 (可选)
+*.pdf
+*.docx
+*.doc
+
