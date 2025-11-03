@@ -1,0 +1,96 @@
+TS_Prediction_Final/
+│
+├── 📄 README.md                    # 项目总览 (英文, GitHub标准, 6.5KB)
+├── 📄 SUBMISSION.md                # 代码提交说明 (中文对照评分标准, 5.8KB)  
+├── 📄 QUICK_START.md               # 快速开始指南 (中英双语, 3.8KB)
+├── 📄 PROJECT_SUMMARY.txt          # 项目总结报告
+│
+├── 📜 LICENSE                      # MIT开源协议
+├── 📜 .gitignore                   # Git忽略规则
+├── 📋 requirements.txt             # Python依赖列表 (带版本号)
+├── ⚙️  config.yaml                  # 配置文件 (详细英文注释, 3.7KB)
+│
+├── 🚀 run_training.sh              # 一键运行脚本 (自动环境检查, 4.2KB)
+├── 🎓 train.py                     # 训练主脚本 (命令行参数, 12KB)
+├── 🔮 predict.py                   # 预测主脚本 (批量预测, 5.9KB)
+│
+├── 📦 models/                      # 模型模块
+│   ├── __init__.py                # 模块初始化
+│   ├── reaction_center.py        # 反应中心检测器 (英文注释)
+│   │   ├── ReactionCenterDetector   - 识别反应中心原子
+│   │   └── CrossAttentionRP         - R↔P交叉注意力
+│   └── ts_predictor_complete.py  # 完整TS预测模型
+│       ├── ReactionCentricTSPredictor  - 主模型
+│       ├── ReactionCentricLoss         - 多任务Loss
+│       └── create_reaction_centric_model()
+│
+├── 📊 data/                        # 数据处理模块
+│   ├── __init__.py                # 模块初始化
+│   ├── dataset.py                 # 数据集基类
+│   └── dataset_complete.py        # 完整数据加载器
+│       ├── TSFFHybridDataset      - XYZ文件加载
+│       ├── collate_fn()           - 批处理函数
+│       └── 数据增强支持
+│
+└── 🛠  utils/                       # 工具函数
+    ├── __init__.py                # 模块初始化
+    └── metrics.py                 # 评估指标
+        ├── calculate_rmsd()       - RMSD计算
+        ├── calculate_mae()        - MAE计算
+        ├── calculate_success_rate() - 成功率
+        └── kabsch_alignment()     - Kabsch对齐
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 代码统计
+
+总文件数: 18个
+总代码量: ~1,500 行 (含注释和文档)
+
+模块分布:
+  • 模型代码:      ~600 行  (models/)
+  • 数据处理:      ~400 行  (data/)
+  • 工具函数:      ~100 行  (utils/)
+  • 训练脚本:      ~350 行  (train.py + predict.py)
+  • 文档:          ~400 行  (README.md + SUBMISSION.md + QUICK_START.md)
+
+注释覆盖率: 95%+ (所有函数都有docstring)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✨ 关键文件说明
+
+核心文档:
+  README.md         - 完整的英文项目文档, GitHub标准格式
+                    - 包含: 特性、架构图、安装、使用、性能指标
+                    
+  SUBMISSION.md     - 代码提交说明, 对照评分标准自检
+                    - 包含: 5项评分标准逐项说明, 使用指南
+                    
+  QUICK_START.md    - 快速开始指南, 中英双语
+                    - 包含: 3分钟上手, 常见问题, 数据格式
+
+核心脚本:
+  run_training.sh   - 一键运行脚本
+                    - 自动检查: Python环境、依赖、数据、配置
+                    - 支持前台/后台运行
+                    
+  train.py          - 训练主脚本
+                    - 支持: 断点续训、混合精度、TensorBoard
+                    - 命令行参数: --config, --resume, --train_dir等
+                    
+  predict.py        - 预测主脚本
+                    - 支持: 批量预测、置信度输出
+                    - 命令行参数: --checkpoint, --input_dir, --output_dir等
+
+核心模型:
+  models/reaction_center.py      - 反应中心检测
+                                  - 自动识别参与反应的原子
+                                  - 跨注意力机制
+                                  
+  models/ts_predictor_complete.py - 完整TS预测器
+                                  - 12层Transformer
+                                  - 分层预测 (反应中心 vs 旁观者)
+                                  - 置信度预测
+
+═══════════════════════════════════════════════════════════════════════════════

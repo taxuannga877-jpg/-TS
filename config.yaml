@@ -1,0 +1,92 @@
+# ========================================
+# Transition State Prediction Config
+# ========================================
+
+# Model Architecture
+model:
+  hidden_dim: 512                # Hidden dimension for embeddings
+  num_layers: 12                 # Number of Transformer layers
+  num_heads: 8                   # Number of attention heads
+  dropout: 0.1                   # Dropout rate
+  num_rbf: 64                    # Number of RBF bases for distance encoding
+  cutoff: 10.0                   # Distance cutoff (Angstrom)
+
+# Training Configuration
+training:
+  # Basic settings
+  epochs: 200                    # Total training epochs
+  batch_size: 128                # Batch size (adjust based on GPU memory)
+  learning_rate: 1.0e-4          # Initial learning rate
+  min_lr: 1.0e-8                 # Minimum learning rate for scheduler
+  weight_decay: 1.0e-4           # L2 regularization
+  
+  # Optimization
+  optimizer: "adamw"             # Optimizer: adam, adamw, sgd
+  scheduler: "cosine"            # LR scheduler: cosine, step, plateau
+  warmup_epochs: 5               # Warmup epochs
+  gradient_clip: 1.0             # Gradient clipping norm
+  
+  # Advanced
+  mixed_precision: true          # Use automatic mixed precision (FP16)
+  gradient_accumulation: 1       # Gradient accumulation steps
+  num_workers: 8                 # Number of data loading workers
+  pin_memory: true               # Pin memory for faster GPU transfer
+  
+  # Early stopping
+  patience: 30                   # Patience for early stopping
+  
+# Loss Function Weights
+loss:
+  coord_weight: 1.0              # Coordinate MSE loss
+  distance_weight: 0.5           # Distance matrix loss
+  center_weight: 0.3             # Reaction center loss
+  confidence_weight: 0.2         # Confidence loss
+  collision_weight: 0.1          # Atom collision penalty
+  bond_length_weight: 0.05       # Bond length constraint
+  energy_weight: 0.02            # Energy consistency loss
+  use_kabsch: true               # Use Kabsch alignment for loss
+
+# Data Configuration
+data:
+  train_path: "train_data"       # Path to training data
+  test_path: "test_data"         # Path to test data
+  val_split: 0.1                 # Validation split ratio
+  
+  # Data augmentation
+  augment: true                  # Enable data augmentation
+  augment_prob: 0.7              # Probability of applying augmentation
+  rotation_angle: 30.0           # Max rotation angle (degrees)
+  noise_scale: 0.05              # Gaussian noise scale (Angstrom)
+  scale_factor: 0.05             # Random scaling factor
+  translation: 0.5               # Max translation (Angstrom)
+  
+  # Preprocessing
+  max_atoms: 100                 # Maximum number of atoms
+  normalize_coords: false        # Normalize coordinates
+
+# Logging & Checkpointing
+logging:
+  output_dir: "outputs"          # Output directory
+  log_interval: 10               # Log every N batches
+  save_interval: 20              # Save checkpoint every N epochs
+  tensorboard: true              # Enable TensorBoard logging
+  verbose: true                  # Verbose output
+
+# Hardware
+device: "cuda"                   # Device: cuda, cpu
+seed: 42                         # Random seed for reproducibility
+
+# Prediction
+prediction:
+  batch_size: 32                 # Batch size for prediction
+  num_workers: 4                 # Number of workers for prediction
+  save_confidence: true          # Save confidence scores
+  
+# Evaluation
+evaluation:
+  metrics:
+    - "rmsd"                     # RMSD between predicted and true TS
+    - "success_rate"             # Success rate (RMSD < threshold)
+    - "mae"                      # Mean Absolute Error
+  success_threshold: 0.5         # Success threshold (Angstrom)
+
